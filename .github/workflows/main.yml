@@ -1,14 +1,21 @@
-name: Python Applocation
+name: Python Application
 on: push
 jobs:
-     build:
-        runs-on: ubuntu-latest
-        steps:
-         - uses: action/checkout@v3
-         - name:  Set up Python 3.10
-           uses: actions/setup-python@v3
-           with:
-             python-version: "3.10"
-             run: make install
-             - name: Test with pytest
-             run: make test 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Test with pytest
+        run: |
+          pytest test.py
